@@ -21,7 +21,7 @@ associated with different endpoints of the website.
 
 The load generator used will also expose APIs for fetching the statistics and
 change the number of users used in the simulation. To see what type of information
-can be fetched from the load tester, you can go to `https://MASTER_IP:8089/stats/requests`.
+can be fetched from the load tester, you can go to `http://MASTER_IP:8089/stats/requests`.
 The result will be a json similar to the following:
 
 ```json

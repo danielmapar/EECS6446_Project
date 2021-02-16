@@ -15,7 +15,7 @@ check out [their documentation](https://github.com/GoogleCloudPlatform/microserv
 ## Deployment
 
 For this project, you will be using a pre-rendered version of this application with
-publicly available docker containers.
+publicly available docker containers. Run the following command on your master node. 
 
 ```sh
 # deploy the default manifest

@@ -104,6 +104,9 @@ arkade get helm
 arkade get k3sup
 # move kubectl to /usr/bin to allow it to be used in python later on
 sudo cp ~/.arkade/bin/kubectl /usr/bin/ && sudo chmod +x /usr/bin/kubectl
+# Add helm and k3sup to your PATH variable
+export PATH=$PATH:$HOME/.arkade/bin/
+
 ```
 
 Let's test our installation:
@@ -243,6 +246,22 @@ export MASTER_USER=ubuntu
 export WORKER_IP=10.1.1.2
 export WORKER_USER=ubuntu
 k3sup join --ip $WORKER_IP --user $WORKER_USER --server-ip $MASTER_IP --server-user $MASTER_USER --k3s-extra-args "--node-external-ip $WORKER_IP --node-ip $WORKER_IP" --k3s-channel stable --print-command
+```
+
+In case you did not include your private and public keys in the default path (`.ssh/id_rsa` and `.ssh/id_rsa.pub`), you need to specify them whenever you want to connect with your remote VM. In order to do so, you need to perform the **join** command in the following way, setting the `KEY_LOCATION` to the path to your private key:
+
+```sh
+# set your key location here
+export KEY_LOCATION="/PATH/TO/YOUR/PRIVATE_KEY"
+
+k3sup join --ip $WORKER_IP \\
+    --user $WORKER_USER \\
+    --server-ip $MASTER_IP \\
+    --server-user $MASTER_USER \\
+    --k3s-extra-args "--node-external-ip $WORKER_IP --node-ip $WORKER_IP" \\
+    --k3s-channel stable \\
+    --print-command \\
+    --ssh-key $KEY_LOCATION
 ```
 
 If everything goes as planned, you should see an output like the following:
