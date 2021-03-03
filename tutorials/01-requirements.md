@@ -48,6 +48,8 @@ $ ssh ubuntu@10.1.1.2
 $ ssh ubuntu@10.1.1.1 -i /PATH/TO/SSHKEY
 ```
 
+To learn more about SSH and how you can use it, watch [this tutorial](https://youtu.be/YS5Zh7KExvE).
+
 ## Visual Studio Code
 
 The easiest way to interact with your virtual machine is using Visual Studio Code 
