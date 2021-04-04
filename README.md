@@ -27,3 +27,6 @@ Here is the table of contents for phase 1:
 
 Should you have any question or issue, please post them in the course's forum
 or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/new/choose).
+
+## Project - Phase 2
+
