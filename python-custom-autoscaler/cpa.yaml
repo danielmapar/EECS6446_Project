@@ -1,0 +1,18 @@
+apiVersion: custompodautoscaler.com/v1
+kind: CustomPodAutoscaler
+metadata:
+  name: python-custom-autoscaler-frontend
+spec:
+  template:
+    spec:
+      containers:
+      - name: python-custom-autoscaler-frontend
+        image: danielmapar/python-custom-autoscaler:v1.4
+        imagePullPolicy: IfNotPresent
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: frontend
+  config: 
+    - name: interval
+      value: "30000"

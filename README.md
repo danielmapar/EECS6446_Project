@@ -30,3 +30,24 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 ## Project - Phase 2
 
+* https://hub.kubeapps.com/charts/bitnami/mongodb
+
+* `helm repo add bitnami https://charts.bitnami.com/bitnami`
+* `helm install mongodb bitnami/mongodb`
+    * `helm delete mongodb`
+
+* `kubectl port-forward --namespace default svc/mongodb 27017:27017 &`
+* `export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)`
+
+* `sudo apt install mongodb-clients`
+* `mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD`
+
+
+First we should enable custom autoscalers on our cluster by installing the Custom Pod Autoscaler Operator, for this guide we are using `v1.0.3`, but check out the latest version from the [Custom Pod Autoscaler Operator releases](https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases) and see the [install guide](https://github.com/jthomperoo/custom-pod-autoscaler-operator/blob/master/INSTALL.md) for the latest install information.
+
+```sh
+VERSION=v1.0.3
+kubectl apply -f https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases/download/${VERSION}/cluster.yaml`
+```
+
+
