@@ -30,18 +30,25 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 ## Project - Phase 2
 
-* https://hub.kubeapps.com/charts/bitnami/mongodb
+* Setup a MongoDB inside your cluster
+    * Install MongoDB by using Helm
+        * `helm repo add bitnami https://charts.bitnami.com/bitnami`
+        * `helm install mongodb bitnami/mongodb`
 
-* `helm repo add bitnami https://charts.bitnami.com/bitnami`
-* `helm install mongodb bitnami/mongodb`
-    * `helm delete mongodb`
+    * Port-forward traffic for port `27017`
+        * `kubectl port-forward --namespace default svc/mongodb 27017:27017 &`
+    
+    * Try accessing the database
+        * `sudo apt install mongodb-clients`
+            * This is a client to interact with MongoDB
+        * `export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)`
+        * `mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD`
 
-* `kubectl port-forward --namespace default svc/mongodb 27017:27017 &`
-* `export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)`
+    * For more details check [this](https://hub.kubeapps.com/charts/bitnami/mongodb)
 
-* `sudo apt install mongodb-clients`
-* `mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD`
-
+* Setup FlaskAPI
+    * Navigate to the Custom Autoscaler API folder: `cd custom-autoscaler/api`
+    * Install dependencies: `pip install -r requirements.txt`
 
 First we should enable custom autoscalers on our cluster by installing the Custom Pod Autoscaler Operator, for this guide we are using `v1.0.3`, but check out the latest version from the [Custom Pod Autoscaler Operator releases](https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases) and see the [install guide](https://github.com/jthomperoo/custom-pod-autoscaler-operator/blob/master/INSTALL.md) for the latest install information.
 
