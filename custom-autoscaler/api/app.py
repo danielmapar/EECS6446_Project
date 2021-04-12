@@ -9,14 +9,18 @@ app = Flask(__name__)
 
 inside_cluster = os.environ.get('IN_K8')
 
-if "True" in inside_cluster:
-    app.config['MONGO_HOST'] = str(os.environ.get('MONGO_HOST'))
-    app.config['MONGO_PORT'] = int(os.environ.get('MONGO_PORT'))
-    app.config['MONGO_DBNAME'] = str(os.environ.get('MONGO_DBNAME'))
-    app.config['MONGO_USERNAME'] = str(os.environ.get('MONGO_USERNAME'))
-    app.config['MONGO_PASSWORD'] = str(os.environ.get('MONGO_PASSWORD'))
+if inside_cluster == "True":
+    MONGO_HOST = str(os.environ.get('MONGO_HOST'))
+    MONGO_PORT = str(os.environ.get('MONGO_PORT'))
+    MONGO_DB = str(os.environ.get('MONGO_DBNAME'))
+    MONGO_USER = str(os.environ.get('MONGO_USERNAME'))
+    MONGO_PASS = str(os.environ.get('MONGO_PASSWORD'))
+    app.config["MONGO_URI"] = "mongodb://{}:{}@{}:{}/{}?authSource=admin".format(MONGO_USER, MONGO_PASS, MONGO_HOST, MONGO_PORT, MONGO_DB)
 else:
     app.config['MONGO_URI'] = 'mongodb://localhost:27017/cpa'
+
+print("LIVE URI:")
+print(app.config["MONGO_URI"])
 
 mongo = PyMongo(app)
 

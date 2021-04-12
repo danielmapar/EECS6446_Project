@@ -5,7 +5,7 @@ metadata:
   labels:
     app: cpa-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: cpa-api
@@ -16,13 +16,12 @@ spec:
     spec:
       containers:
         - name: cpa-api
-          image: dmapar/cpa-api
-          imagePullPolicy: Never
+          image: danielmapar/cpa-api:latest
           ports:
             - containerPort: 5000
           env:
             - name: MONGO_HOST
-              value: "localhost"
+              value: "mongodb.default.svc.cluster.local"
             - name: MONGO_PORT
               value: "27017"
             - name: MONGO_DBNAME
@@ -30,7 +29,9 @@ spec:
             - name: MONGO_USERNAME
               value: "root"
             - name: MONGO_PASSWORD
-              value: "root"
+              value: "iRhrF6O0vp"
+            - name: IN_K8
+              value: "True"
           resources:
             requests:
               cpu: 500m
