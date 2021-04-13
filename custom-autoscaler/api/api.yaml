@@ -32,6 +32,8 @@ spec:
               value: "iRhrF6O0vp"
             - name: IN_K8
               value: "True"
+            - name: API_PORT
+              value: "5000"
           resources:
             requests:
               cpu: 500m
