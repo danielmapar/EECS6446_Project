@@ -1,17 +1,20 @@
 
-import React, { useState } from 'react';
 import './App.css';
 
-import DeploymentsList from './DeploymentsList';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import axios from 'axios';
 
+import DeploymentsList from './DeploymentsList';
+
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
 
-import { useForm } from 'react-hook-form';
+const API_URL = process.env.REACT_APP_API_URL;
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -23,27 +26,53 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function App() {
-  const [deployments, setDeployments] = useState(['1','2','3']);
-  const [equation, setEquation] = useState("test");
+  
+  const [deployments, setDeployments] = useState([]);
+  const [equation, setEquation] = useState("");
+
+  useEffect(() => {
+    async function fetchDeploymentsData() {
+      const deploymentsResult = await axios(
+        `${API_URL}/deployments`,
+      );
+      setDeployments([...deploymentsResult.data.result.list])
+    }
+
+    async function fetchEquationData() {
+      const deploymentsResult = await axios(
+        `${API_URL}/equation`,
+      );
+      setEquation([...deploymentsResult.data.result.equation])
+    }
+
+    fetchDeploymentsData();
+    fetchEquationData();
+  }, []);
+
+  const saveDeployments = async (deployments) => await axios.put(`${API_URL}/setDeployments`, {"list": deployments})
+  const saveEquation = async (equation) => await axios.put(`${API_URL}/setEquation`, {"equation": equation})
   
   const { register, handleSubmit, reset} = useForm();
 
   const classes = useStyles();
 
-  const removeDeployment = (index) => {
+  const removeDeployment = async (index) => {
     const newDeployments = [...deployments];
     newDeployments.splice(index, 1);
     setDeployments(newDeployments);
+    await saveDeployments(newDeployments);
   }
 
   const onSubmitNewDeployment = async (data) => {
     const newDeployments = [...deployments, data.newDeployment];
     setDeployments(newDeployments);
+    await saveDeployments(newDeployments);
     reset();
   };
 
   const onSubmitEquation = async (data) => {
     setEquation(data.equation)
+    await saveEquation(data.equation);
     reset();
   }
 
