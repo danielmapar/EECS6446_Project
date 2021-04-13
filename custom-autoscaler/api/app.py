@@ -4,8 +4,10 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 from flask_pymongo import PyMongo
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app) # This will enable CORS for all routes
 
 inside_cluster = os.environ.get('IN_K8')
 
@@ -78,14 +80,18 @@ def get_equation():
 @app.route('/createLoadTest', methods=['POST'])
 def create_load_test():
   loadtest = mongo.db.loadtest
+  deployments = mongo.db.deployments
 
   equation_str = str(request.json['equation'])
-  data_str = str(request.json['data'])
   timestamp = str(datetime.now())
+
+  list_of_deployments = None
+  for s in deployments.find():
+    list_of_deployments = s['list']
 
   loadtest_id = None
 
-  loadtest_insert_obj = loadtest.insert_one({'equation': equation_str, "timestamp": timestamp, "data": data_str})
+  loadtest_insert_obj = loadtest.insert_one({'equation': equation_str, "timestamp": timestamp, "deployments": list_of_deployments, "data": "test"})
   loadtest_id = loadtest_insert_obj.inserted_id
   
   return jsonify({'result' : str(loadtest_id)})
@@ -95,7 +101,7 @@ def get_all_loadtests():
   loadtest = mongo.db.loadtest
   output = None
   for s in loadtest.find():
-    output = {'equation': s['equation'], "timestamp": s['timestamp'], "data": s['data']}
+    output = {'equation': s['equation'], "timestamp": s['timestamp'], "deployments": s['deployments'], "data": s['data']}
   return jsonify({'result' : output})
 
 if __name__ == '__main__':
