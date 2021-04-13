@@ -42,7 +42,7 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
         * `sudo apt install mongodb-clients`
             * This is a client to interact with MongoDB
         * `export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace default mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 --decode)`
-        * `mongo --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD`
+        * `mongo --host 127.0.0.1 --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD`
 
     * For more details check [this](https://hub.kubeapps.com/charts/bitnami/mongodb)
 
