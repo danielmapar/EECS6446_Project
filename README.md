@@ -57,6 +57,9 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 * Setup Web Frontend
 
+    * Navigate to the Custom Autoscaler frontend folder: `cd custom-autoscaler/frontend`
+    * Add the frontend to your cluster: `kubectl apply -f frontend.yaml`
+
 ### Developer setup
 
 * Setup Flask API
