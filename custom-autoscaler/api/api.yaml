@@ -34,6 +34,8 @@ spec:
               value: "True"
             - name: API_PORT
               value: "5000"
+            - name: "NEW"
+              value: "testasdasd"
           resources:
             requests:
               cpu: 500m
