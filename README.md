@@ -64,10 +64,20 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
     * Install dependencies: `pip install -r requirements.txt`
     * Run the API locally: `python app.py`
 
+    * To publish a new version
+        * `docker build -t danielmapar/cpa-api:latest .`
+        * `docker push danielmapar/cpa-api`
+        * `kubectl apply -f api.yaml`
+
 * Setup Web Frontend
 
     * Install dependencies `yarn install`
     * Run the frontend locally: `yarn start`
+
+    * To publish a new version
+        * `docker build -t danielmapar/cpa-frontend:latest .`
+        * `docker push danielmapar/cpa-frontend`
+        * `kubectl apply -f frontend.yaml`
 
 First we should enable custom autoscalers on our cluster by installing the Custom Pod Autoscaler Operator, for this guide we are using `v1.0.3`, but check out the latest version from the [Custom Pod Autoscaler Operator releases](https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases) and see the [install guide](https://github.com/jthomperoo/custom-pod-autoscaler-operator/blob/master/INSTALL.md) for the latest install information.
 

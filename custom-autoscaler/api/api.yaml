@@ -34,15 +34,13 @@ spec:
               value: "True"
             - name: API_PORT
               value: "5000"
-            - name: "NEW"
-              value: "testasdasd"
           resources:
             requests:
               cpu: 500m
-              memory: 128Mi
+              memory: 1028Mi
             limits:
               cpu: 1000m
-              memory: 128Mi
+              memory: 1028Mi
 
 ---
 apiVersion: v1
@@ -51,7 +49,7 @@ metadata:
   name: cpa-api-service
 spec:
   ports:
-  - port: 5000
+  - port: 5001
     protocol: TCP
     targetPort: 5000
   selector:

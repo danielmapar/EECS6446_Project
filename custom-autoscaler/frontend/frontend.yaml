@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cpa-frontend-deployment
+  labels:
+    app: cpa-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cpa-frontend
+  template:
+    metadata:
+      labels:
+        app: cpa-frontend
+    spec:
+      containers:
+        - name: cpa-frontend
+          image: danielmapar/cpa-frontend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: REACT_APP_API_URL
+              value: "http://192.168.23.92:5001"
+          resources:
+            requests:
+              cpu: 500m
+              memory: 1028Mi
+            limits:
+              cpu: 1000m
+              memory: 1028Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cpa-frontend-service
+spec:
+  ports:
+  - port: 3001
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: cpa-frontend
+  type: LoadBalancer

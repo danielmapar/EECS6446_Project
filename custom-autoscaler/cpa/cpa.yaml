@@ -1,18 +1,19 @@
 apiVersion: custompodautoscaler.com/v1
 kind: CustomPodAutoscaler
 metadata:
-  name: python-custom-autoscaler-frontend
+  name: k8s-metrics-cpu
 spec:
   template:
     spec:
       containers:
-      - name: python-custom-autoscaler-frontend
-        image: danielmapar/python-custom-autoscaler:v1.4
+      - name: k8s-metrics-cpu
+        image: k8s-metrics-cpu:latest
         imagePullPolicy: IfNotPresent
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: frontend
-  config: 
+    name: php-apache
+  roleRequiresMetricsServer: true
+  config:
     - name: interval
-      value: "30000"
+      value: "10000"
