@@ -42,7 +42,7 @@ function App() {
       const deploymentsResult = await axios(
         `${API_URL}/equation`,
       );
-      setEquation([...deploymentsResult.data.result.equation])
+      setEquation(deploymentsResult.data.result.equation)
     }
 
     fetchDeploymentsData();
@@ -77,8 +77,7 @@ function App() {
   }
 
   const createLoadTest = async () => {
-    console.log(deployments)
-    console.log(equation)
+    await axios.post(`${API_URL}/createLoadTest`, {"equation": equation})
   }
 
   return (
