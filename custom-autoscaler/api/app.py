@@ -99,9 +99,9 @@ def create_load_test():
 @app.route('/loadTests', methods=['GET'])
 def get_all_loadtests():
   loadtest = mongo.db.loadtest
-  output = None
+  output = []
   for s in loadtest.find():
-    output = {'equation': s['equation'], "timestamp": s['timestamp'], "deployments": s['deployments'], "data": s['data']}
+    output.append({'equation': s['equation'], "timestamp": s['timestamp'], "deployments": s['deployments'], "data": s['data']})
   return jsonify({'result' : output})
 
 if __name__ == '__main__':

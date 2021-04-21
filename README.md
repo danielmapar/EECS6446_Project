@@ -1,4 +1,5 @@
 # EECS6446: Performance Modelling of Computing Systems
+
 ## Project - Phase 1
 
 Welcome to `EECS6446` course project. In the first phase of this project, you will deploy a sample
@@ -30,7 +31,10 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 ## Project - Phase 2
 
-* Setup a MongoDB inside your cluster
+### Kubernetes setup
+
+* Setup MongoDB inside your cluster
+
     * Install MongoDB by using Helm
         * `helm repo add bitnami https://charts.bitnami.com/bitnami`
         * `helm install mongodb bitnami/mongodb`
@@ -46,9 +50,24 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
     * For more details check [this](https://hub.kubeapps.com/charts/bitnami/mongodb)
 
-* Setup FlaskAPI
+* Setup Flask API
+
     * Navigate to the Custom Autoscaler API folder: `cd custom-autoscaler/api`
+    * Add the API to your cluster: `kubectl apply -f api.yaml`
+
+* Setup Web Frontend
+
+### Developer setup
+
+* Setup Flask API
+
     * Install dependencies: `pip install -r requirements.txt`
+    * Run the API locally: `python app.py`
+
+* Setup Web Frontend
+
+    * Install dependencies `yarn install`
+    * Run the frontend locally: `yarn start`
 
 First we should enable custom autoscalers on our cluster by installing the Custom Pod Autoscaler Operator, for this guide we are using `v1.0.3`, but check out the latest version from the [Custom Pod Autoscaler Operator releases](https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases) and see the [install guide](https://github.com/jthomperoo/custom-pod-autoscaler-operator/blob/master/INSTALL.md) for the latest install information.
 
