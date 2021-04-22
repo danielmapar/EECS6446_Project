@@ -1,22 +1,15 @@
 evaluate:
   type: "shell"
-  timeout: 2500
+  timeout: 5000
   shell:
     entrypoint: "python"
     command:
       - "/evaluate.py"
 metric:
   type: "shell"
-  timeout: 2500
+  timeout: 5000
   shell:
     entrypoint: "python"
     command:
       - "/metric.py"
-kubernetesMetricSpecs:
-  - type: Resource
-    resource:
-      name: cpu
-      target:
-        type: Utilization
-requireKubernetesMetrics: true
 runMode: "per-resource"

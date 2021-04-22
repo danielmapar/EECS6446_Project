@@ -2,7 +2,11 @@
 import './App.css';
 
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/theme-github";
+import "ace-builds/src-noconflict/ext-language_tools"
 import axios from 'axios';
 
 import DeploymentsList from './DeploymentsList';
@@ -13,6 +17,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import AddIcon from '@material-ui/icons/Add';
 import SaveIcon from '@material-ui/icons/Save';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -20,29 +25,54 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
-  textField: {
-    width: '100ch',
-  }
+  top: {
+    color: '#1a90ff',
+    animationDuration: '550ms',
+  },
+  circle: {
+    strokeLinecap: 'round',
+  },
 }));
 
-function App() {
+function App(props) {
   
   const [deployments, setDeployments] = useState([]);
   const [equation, setEquation] = useState("");
+  const [loadTestRunning, setLoadTestRunning] = useState(false);
 
   useEffect(() => {
     async function fetchDeploymentsData() {
       const deploymentsResult = await axios(
         `${API_URL}/deployments`,
       );
-      setDeployments([...deploymentsResult.data.result.list])
+      const data = deploymentsResult.data.result
+
+      if (data === null) setDeployments([])
+      else setDeployments([...data.list])
     }
 
     async function fetchEquationData() {
       const deploymentsResult = await axios(
         `${API_URL}/equation`,
       );
-      setEquation(deploymentsResult.data.result.equation)
+      const data = deploymentsResult.data.result
+
+      const defaultCode = `
+def scale(last_prediction, current_deployment_cpu_avg):
+  desired_num_of_pods = 1
+  current_prediction = current_deployment_cpu_avg * last_prediction * 2
+
+  if current_prediction > 10:
+    desired_num_of_pods = 5
+  else:
+    desired_num_of_pods = 10
+
+  return [desired_num_of_pods, current_prediction]
+`;
+
+      if (data === null) setEquation(defaultCode)
+      else if (data.equation.length === 0) setEquation(defaultCode)
+      else setEquation(data.equation)
     }
 
     fetchDeploymentsData();
@@ -52,7 +82,7 @@ function App() {
   const saveDeployments = async (deployments) => await axios.put(`${API_URL}/setDeployments`, {"list": deployments})
   const saveEquation = async (equation) => await axios.put(`${API_URL}/setEquation`, {"equation": equation})
   
-  const { register, handleSubmit, reset} = useForm();
+  const { register, handleSubmit, control, reset} = useForm();
 
   const classes = useStyles();
 
@@ -74,11 +104,16 @@ function App() {
     setEquation(data.equation)
     await saveEquation(data.equation);
     reset();
+    alert("Equation saved!")
   }
 
   const createLoadTest = async () => {
+    setLoadTestRunning(true)
     await axios.post(`${API_URL}/createLoadTest`, {"equation": equation})
+    setLoadTestRunning(false)
   }
+
+  if (equation.length === 0) return <span/>
 
   return (
     <Grid
@@ -112,13 +147,25 @@ function App() {
       </form>
       <br />
       <hr />
+      <b>Autoscaler function:</b>
       <form onSubmit={handleSubmit(onSubmitEquation)}>
-        <TextField 
-          className={classes.textField}
-          {...register('equation')}
+        <Controller
           name="equation"
-          label="Autoscaler Equation" 
-          variant="outlined" 
+          control={control}
+          defaultValue={equation}
+          render={({ field }) => 
+          <AceEditor
+            {...field}
+            mode="python"
+            theme="github"
+            name="equation-ace"
+            editorProps={{ $blockScrolling: true }}
+            setOptions={{
+              enableBasicAutocompletion: true,
+              enableLiveAutocompletion: true,
+              enableSnippets: true
+            }}
+          />}
         />
         <br />
         <Button
@@ -131,15 +178,29 @@ function App() {
           Save
         </Button>
       </form>
-      <div>Active autoscaler equation:</div>
-       <br/> 
-      <div>
-        <b style={{textAlign: "center"}}>{equation}</b>
-      </div>
       <br/>
-      <Button variant="contained" color="primary" onClick={() => createLoadTest()}>
+      <Button 
+        variant="contained" 
+        color="primary" 
+        onClick={() => createLoadTest()}
+        disabled={loadTestRunning}
+      >
         Trigger Load Test
+        {loadTestRunning ? <CircularProgress
+          variant="indeterminate"
+          disableShrink
+          className={classes.top}
+          classes={{
+            circle: classes.circle,
+          }}
+          size={40}
+          thickness={4}
+          {...props}
+        /> : <></>}
       </Button>
+      <br />
+      
+      
     </Grid>
   );
 }

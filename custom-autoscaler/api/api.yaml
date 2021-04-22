@@ -30,8 +30,10 @@ spec:
               value: "root"
             - name: MONGO_PASSWORD
               value: "iRhrF6O0vp"
-            - name: IN_K8
-              value: "True"
+            - name: LOCUST_URL
+              value: "http://192.168.23.92:8089"
+            - name: PROMETHEUS_URL
+              value: "http://192.168.23.92:9090"
             - name: API_PORT
               value: "5000"
           resources:

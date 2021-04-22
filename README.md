@@ -29,9 +29,9 @@ Here is the table of contents for phase 1:
 Should you have any question or issue, please post them in the course's forum
 or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/new/choose).
 
-## Project - Phase 2
+## Project - Phase 2 (Custom Pod Autoscaler)
 
-### Kubernetes setup
+### K8s Setup
 
 * Setup MongoDB inside your cluster
 
@@ -52,13 +52,22 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 * Setup Flask API
 
-    * Navigate to the Custom Autoscaler API folder: `cd custom-autoscaler/api`
+    * Navigate to the Custom Pod Autoscaler API folder: `cd custom-autoscaler/api`
     * Add the API to your cluster: `kubectl apply -f api.yaml`
 
 * Setup Web Frontend
 
-    * Navigate to the Custom Autoscaler frontend folder: `cd custom-autoscaler/frontend`
+    * Navigate to the Custom Pod Autoscaler frontend folder: `cd custom-autoscaler/frontend`
     * Add the frontend to your cluster: `kubectl apply -f frontend.yaml`
+
+* Setup Custom Pod Autoscaler job
+    * Add the Custom Pod Autoscaler Operator to your cluster
+        * ```sh
+            VERSION=v1.1.0
+            kubectl apply -f https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases/download/${VERSION}/cluster.yaml
+            ```
+    * Navigate to the Custom Pod Autoscaler job folder `cd custom-autoscaler/cpa`
+    * Add the Custom Pod Autoscaler jobs to your cluster: `kubectl apply -f cpa.yaml`
 
 ### Developer setup
 
@@ -82,11 +91,13 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
         * `docker push danielmapar/cpa-frontend`
         * `kubectl apply -f frontend.yaml`
 
-First we should enable custom autoscalers on our cluster by installing the Custom Pod Autoscaler Operator, for this guide we are using `v1.0.3`, but check out the latest version from the [Custom Pod Autoscaler Operator releases](https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases) and see the [install guide](https://github.com/jthomperoo/custom-pod-autoscaler-operator/blob/master/INSTALL.md) for the latest install information.
+* Setup Custom Pod Autoscaler Job
 
-```sh
-VERSION=v1.0.3
-kubectl apply -f https://github.com/jthomperoo/custom-pod-autoscaler-operator/releases/download/${VERSION}/cluster.yaml`
-```
+    * Install dependencies: `pip install -r requirements.txt`
+    * Run the API locally: `python metric.py`
 
+    * To publish a new version
+        * `docker build -t danielmapar/cpa:latest .`
+        * `docker push danielmapar/cpa`
+        * `kubectl apply -f cpa.yaml`
 

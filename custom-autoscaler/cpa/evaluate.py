@@ -9,11 +9,12 @@ def main():
 
 def evaluate(spec):
     try:
-        value = int(spec["metrics"][0]["value"])
+        sys.stderr.write("--> DEBUG - evaluate")
+        sys.stderr.write(json.dumps(spec))
 
         # Build JSON dict with targetReplicas
         evaluation = {}
-        evaluation["targetReplicas"] = value
+        evaluation["targetReplicas"] = 1
 
         # Output JSON to stdout
         sys.stdout.write(json.dumps(evaluation))
