@@ -8,8 +8,9 @@ spec:
       containers:
       - name: cpa-redis-cart
         image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
         env:
+          - name: REFRESH
+            value: "111"
           - name: MONGO_HOST
             value: "mongodb.default.svc.cluster.local"
           - name: MONGO_PORT
@@ -29,323 +30,323 @@ spec:
   config:
     - name: interval
       value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-shippingservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-shippingservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: shippingservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-paymentservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-paymentservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: paymentservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-productcatalogservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-productcatalogservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: productcatalogservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-emailservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-emailservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: emailservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-checkoutservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-checkoutservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: checkoutservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-recommendationservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-recommendationservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: recommendationservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-currencyservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-currencyservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: currencyservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-cartservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-cartservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: cartservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-adservice
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-adservice
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: adservice
-  config:
-    - name: interval
-      value: "10000"
----
-apiVersion: custompodautoscaler.com/v1
-kind: CustomPodAutoscaler
-metadata:
-  name: cpa-frontend
-spec:
-  template:
-    spec:
-      containers:
-      - name: cpa-frontend
-        image: danielmapar/cpa:latest
-        imagePullPolicy: IfNotPresent
-        env:
-          - name: MONGO_HOST
-            value: "mongodb.default.svc.cluster.local"
-          - name: MONGO_PORT
-            value: "27017"
-          - name: MONGO_DBNAME
-            value: "cpa"
-          - name: MONGO_USERNAME
-            value: "root"
-          - name: MONGO_PASSWORD
-            value: "iRhrF6O0vp"
-          - name: PROMETHEUS_URL
-            value: "http://192.168.23.92:9090"
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: frontend
-  config:
-    - name: interval
-      value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-shippingservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-shippingservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: shippingservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-paymentservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-paymentservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: paymentservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-productcatalogservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-productcatalogservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: productcatalogservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-emailservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-emailservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: emailservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-checkoutservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-checkoutservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: checkoutservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-recommendationservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-recommendationservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: recommendationservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-currencyservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-currencyservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: currencyservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-cartservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-cartservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: cartservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-adservice
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-adservice
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: adservice
+#   config:
+#     - name: interval
+#       value: "10000"
+# ---
+# apiVersion: custompodautoscaler.com/v1
+# kind: CustomPodAutoscaler
+# metadata:
+#   name: cpa-frontend
+# spec:
+#   template:
+#     spec:
+#       containers:
+#       - name: cpa-frontend
+#         image: danielmapar/cpa:latest
+
+#         env:
+#           - name: MONGO_HOST
+#             value: "mongodb.default.svc.cluster.local"
+#           - name: MONGO_PORT
+#             value: "27017"
+#           - name: MONGO_DBNAME
+#             value: "cpa"
+#           - name: MONGO_USERNAME
+#             value: "root"
+#           - name: MONGO_PASSWORD
+#             value: "iRhrF6O0vp"
+#           - name: PROMETHEUS_URL
+#             value: "http://192.168.23.92:9090"
+#   scaleTargetRef:
+#     apiVersion: apps/v1
+#     kind: Deployment
+#     name: frontend
+#   config:
+#     - name: interval
+#       value: "10000"

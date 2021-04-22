@@ -244,5 +244,13 @@ def get_all_loadtests():
     output.append({'status': s['status'],'equation': s['equation'], "timestamp": s['timestamp'], "deployments": s['deployments'], "data": s['data']})
   return jsonify({'result' : output})
 
+@app.route('/predictions', methods=['GET'])
+def get_all_predictions():
+  predictions = mongo.db.predictions
+  output = []
+  for s in predictions.find():
+    output.append({'name': s['name'],'value': s['value']})
+  return jsonify({'result' : output})
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('API_PORT', '5002')))

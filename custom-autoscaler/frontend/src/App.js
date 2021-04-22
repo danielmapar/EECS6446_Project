@@ -58,16 +58,21 @@ function App(props) {
       const data = deploymentsResult.data.result
 
       const defaultCode = `
-def scale(last_prediction, current_deployment_cpu_avg):
+def scale(last_prediction, current_deployment_cpu_avg, current_num_of_replicas):
   desired_num_of_pods = 1
+  if last_prediction == None:
+      last_prediction = 10
+
   current_prediction = current_deployment_cpu_avg * last_prediction * 2
-
-  if current_prediction > 10:
-    desired_num_of_pods = 5
+  
+  print("current_num_of_replicas: " + str(current_num_of_replicas))
+  
+  if current_prediction > 15:
+    desired_num_of_replicas = 2
   else:
-    desired_num_of_pods = 10
+    desired_num_of_replicas = 1
 
-  return [desired_num_of_pods, current_prediction]
+  return [desired_num_of_replicas, current_prediction]
 `;
 
       if (data === null) setEquation(defaultCode)
@@ -104,7 +109,7 @@ def scale(last_prediction, current_deployment_cpu_avg):
     setEquation(data.equation)
     await saveEquation(data.equation);
     reset();
-    alert("Equation saved!")
+    alert("Autoscaler function saved!")
   }
 
   const createLoadTest = async () => {
@@ -147,7 +152,7 @@ def scale(last_prediction, current_deployment_cpu_avg):
       </form>
       <br />
       <hr />
-      <b>Autoscaler function:</b>
+      <b>Autoscaler equation:</b>
       <form onSubmit={handleSubmit(onSubmitEquation)}>
         <Controller
           name="equation"
@@ -198,9 +203,6 @@ def scale(last_prediction, current_deployment_cpu_avg):
           {...props}
         /> : <></>}
       </Button>
-      <br />
-      
-      
     </Grid>
   );
 }

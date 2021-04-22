@@ -52,13 +52,22 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 * Setup Flask API
 
+    * Setup credentials for API to access Kubernetes cluster:
+        * ```sh
+            kubectl create clusterrolebinding serviceaccounts-cluster-admin \
+            --clusterrole=cluster-admin \
+            --group=system:serviceaccounts
+            ```
+
     * Navigate to the Custom Pod Autoscaler API folder: `cd custom-autoscaler/api`
     * Add the API to your cluster: `kubectl apply -f api.yaml`
+        * Update `env` vars inside the file to match your cluster settings
 
 * Setup Web Frontend
 
     * Navigate to the Custom Pod Autoscaler frontend folder: `cd custom-autoscaler/frontend`
     * Add the frontend to your cluster: `kubectl apply -f frontend.yaml`
+        * Update `env` vars inside the file to match your cluster settings
 
 * Setup Custom Pod Autoscaler job
     * Add the Custom Pod Autoscaler Operator to your cluster
@@ -68,6 +77,7 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
             ```
     * Navigate to the Custom Pod Autoscaler job folder `cd custom-autoscaler/cpa`
     * Add the Custom Pod Autoscaler jobs to your cluster: `kubectl apply -f cpa.yaml`
+        * Update `env` vars inside the file to match your cluster settings
 
 ### Developer setup
 
@@ -80,6 +90,7 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
         * `docker build -t danielmapar/cpa-api:latest .`
         * `docker push danielmapar/cpa-api`
         * `kubectl apply -f api.yaml`
+            * Update `env` vars inside the file to match your cluster settings
 
 * Setup Web Frontend
 
@@ -90,14 +101,15 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
         * `docker build -t danielmapar/cpa-frontend:latest .`
         * `docker push danielmapar/cpa-frontend`
         * `kubectl apply -f frontend.yaml`
+            * Update `env` vars inside the file to match your cluster settings
 
 * Setup Custom Pod Autoscaler Job
 
     * Install dependencies: `pip install -r requirements.txt`
-    * Run the API locally: `python metric.py`
+    * Run the CPA job locally: `python metric.py`
 
     * To publish a new version
         * `docker build -t danielmapar/cpa:latest .`
         * `docker push danielmapar/cpa`
         * `kubectl apply -f cpa.yaml`
-
+            * Update `env` vars inside the file to match your cluster settings
