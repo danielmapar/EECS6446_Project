@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
   circle: {
     strokeLinecap: 'round',
   },
+  editorContainer: {
+    width: "632px"
+  }
 }));
 
 function App(props) {
@@ -109,7 +112,7 @@ def scale(last_prediction, current_deployment_cpu_avg, current_num_of_replicas):
     setEquation(data.equation)
     await saveEquation(data.equation);
     reset();
-    alert("Autoscaler function saved!")
+    alert("Autoscaler equation saved!")
   }
 
   const createLoadTest = async () => {
@@ -154,24 +157,30 @@ def scale(last_prediction, current_deployment_cpu_avg, current_num_of_replicas):
       <hr />
       <b>Autoscaler equation:</b>
       <form onSubmit={handleSubmit(onSubmitEquation)}>
-        <Controller
-          name="equation"
-          control={control}
-          defaultValue={equation}
-          render={({ field }) => 
-          <AceEditor
-            {...field}
-            mode="python"
-            theme="github"
-            name="equation-ace"
-            editorProps={{ $blockScrolling: true }}
-            setOptions={{
-              enableBasicAutocompletion: true,
-              enableLiveAutocompletion: true,
-              enableSnippets: true
-            }}
-          />}
-        />
+        <div className={classes.editorContainer}>
+          <Controller
+            name="equation"
+            control={control}
+            defaultValue={equation}
+            render={({ field }) => 
+            <AceEditor
+              {...field}
+              mode="python"
+              theme="github"
+              name="equation-ace"
+              width={'632px'}
+              wrapEnabled={true}
+              tabSize={2}
+              setOptions={{
+                  enableBasicAutocompletion: true,
+                  enableLiveAutocompletion: true,
+                  enableSnippets: false,
+                  showLineNumbers: true,
+                  useSoftTabs: true,
+              }}
+            />}
+          />
+        </div>
         <br />
         <Button
           variant="contained"

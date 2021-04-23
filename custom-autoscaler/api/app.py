@@ -15,9 +15,6 @@ import pacs_load_tester as load_tester
 from tqdm.auto import tqdm
 from kubernetes import client, config
 
-print("debug")
-print(os.getenv('KUBERNETES_SERVICE_HOST'))
-
 if os.getenv('KUBERNETES_SERVICE_HOST'): 
   config.load_incluster_config()
 else: 
@@ -215,6 +212,10 @@ def get_equation():
 def create_load_test():
   loadtest = mongo.db.loadtest
   deployments = mongo.db.deployments
+  predictions = mongo.db.predictions
+
+  # Remove any existing predictions
+  predictions.delete_many({})
 
   equation_str = str(request.json['equation'])
   timestamp = str(datetime.now())

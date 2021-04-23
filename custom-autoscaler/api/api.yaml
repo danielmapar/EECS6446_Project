@@ -20,8 +20,6 @@ spec:
           ports:
             - containerPort: 5000
           env:
-            - name: test
-              value: "test"
             - name: MONGO_HOST
               value: "mongodb.default.svc.cluster.local"
             - name: MONGO_PORT
@@ -45,7 +43,6 @@ spec:
             limits:
               cpu: 1000m
               memory: 2028Mi
-
 ---
 apiVersion: v1
 kind: Service

@@ -83,6 +83,7 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 * Setup Flask API
 
+    * Navigate to the Custom Pod Autoscaler API folder: `cd custom-autoscaler/api`
     * Install dependencies: `pip install -r requirements.txt`
     * Run the API locally: `python app.py`
 
@@ -94,6 +95,7 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 * Setup Web Frontend
 
+    * Navigate to the Custom Pod Autoscaler frontend folder: `cd custom-autoscaler/frontend`
     * Install dependencies `yarn install`
     * Run the frontend locally: `yarn start`
 
@@ -105,8 +107,9 @@ or [open an issue on GitHub](https://github.com/pacslab/EECS6446_Project/issues/
 
 * Setup Custom Pod Autoscaler Job
 
+    * Navigate to the Custom Pod Autoscaler job folder: `cd custom-autoscaler/cpa`
     * Install dependencies: `pip install -r requirements.txt`
-    * Run the CPA job locally: `python metric.py`
+    * Run the CPA job locally: `python metric.py` or `python evaluate.py`
 
     * To publish a new version
         * `docker build -t danielmapar/cpa:latest .`
