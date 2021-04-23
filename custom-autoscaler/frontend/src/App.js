@@ -120,6 +120,8 @@ def scale(last_prediction, current_deployment_cpu_avg, current_num_of_replicas):
     setLoadTestRunning(false)
   }
 
+  if (equation === null || equation === undefined) return <span/>
+
   if (equation.length === 0) return <span/>
 
   return (

@@ -10,7 +10,7 @@ spec:
         image: danielmapar/cpa:latest
         env:
           - name: TEST
-            value: "12311221111"
+            value: "1231111221111"
           - name: MONGO_HOST
             value: "mongodb.default.svc.cluster.local"
           - name: MONGO_PORT

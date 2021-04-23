@@ -1,0 +1,177 @@
+{
+	"info": {
+		"_postman_id": "217337a3-e615-4a1a-8398-1564ffb88324",
+		"name": "CPA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "setDeployments",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"list\": [\n\t\t\"1\",\n\t\t\"2\",\n\t\t\"123131\"\n\t]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/setDeployments",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"setDeployments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getDeployments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/deployments",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"deployments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "setEquation",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"equation\": \"a + b + c\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/setEquation",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"setEquation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getEquation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/equation",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"equation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createLoadTest",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"equation\": \"a + b + c\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/createLoadTest",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"createLoadTest"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getLoadTests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/loadTests",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"loadTests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPredictions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/predictions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"predictions"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
