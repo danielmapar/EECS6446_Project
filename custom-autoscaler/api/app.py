@@ -9,6 +9,7 @@ from flask import jsonify
 from flask import request
 from flask_pymongo import PyMongo
 from flask_cors import CORS
+from bson import json_util
 
 from prometheus_api_client import PrometheusConnect
 import pacs_load_tester as load_tester
@@ -242,8 +243,8 @@ def get_all_loadtests():
   loadtest = mongo.db.loadtest
   output = []
   for s in loadtest.find():
-    output.append({'status': s['status'],'equation': s['equation'], "timestamp": s['timestamp'], "deployments": s['deployments'], "data": s['data']})
-  return jsonify({'result' : output})
+    output.append({'_id': s['_id'], 'status': s['status'],'equation': s['equation'], "timestamp": s['timestamp'], "deployments": s['deployments'], "data": s['data']})
+  return json_util.dumps({'result' : output})
 
 @app.route('/predictions', methods=['GET'])
 def get_all_predictions():

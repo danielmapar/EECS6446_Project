@@ -1,15 +1,16 @@
 evaluate:
   type: "shell"
   timeout: 5000
-  shell:
+  shell: 
     entrypoint: "python"
-    command:
+    command: 
       - "/evaluate.py"
 metric:
   type: "shell"
   timeout: 5000
-  shell:
+  shell: 
     entrypoint: "python"
-    command:
+    command: 
       - "/metric.py"
+minReplicas: 0
 runMode: "per-resource"

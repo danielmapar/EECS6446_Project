@@ -61,14 +61,13 @@ function App(props) {
       const data = deploymentsResult.data.result
 
       const defaultCode = `
+# Do not change stout (do not call print)
 def scale(last_prediction, current_deployment_cpu_avg, current_num_of_replicas):
-  desired_num_of_pods = 1
+  desired_num_of_replicas = 1
   if last_prediction == None:
       last_prediction = 10
 
   current_prediction = current_deployment_cpu_avg * last_prediction * 2
-  
-  print("current_num_of_replicas: " + str(current_num_of_replicas))
   
   if current_prediction > 15:
     desired_num_of_replicas = 2
