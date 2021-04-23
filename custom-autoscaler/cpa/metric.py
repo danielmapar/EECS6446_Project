@@ -72,7 +72,9 @@ def metric(spec, list_of_deployments, deployments_cpu):
 
     deployment_cpu_limit = int(spec['resource']['spec']['template']['spec']['containers'][0]['resources']['limits']['cpu'].replace('m', ''))
 
-    cpu_avr_consump_percent = (deployments_cpu[deployment_name] * 100) / deployment_cpu_limit
+    deployment_num_of_replicas = int(spec['resource']['status']['replicas'])
+
+    cpu_avr_consump_percent = (deployments_cpu[deployment_name] * 100) / (deployment_cpu_limit * deployment_num_of_replicas)
 
     sys.stdout.write("%.2f" % round(cpu_avr_consump_percent, 2))
 
