@@ -1,16 +1,14 @@
 apiVersion: custompodautoscaler.com/v1
 kind: CustomPodAutoscaler
 metadata:
-  name: cpa-redis-cart
+  name: cpa-cartservice
 spec:
   template:
     spec:
       containers:
-      - name: cpa-redis-cart
+      - name: cpa-cartservice
         image: danielmapar/cpa:latest
         env:
-          - name: TEST
-            value: "1231111221111"
           - name: MONGO_HOST
             value: "mongodb.default.svc.cluster.local"
           - name: MONGO_PORT
@@ -26,7 +24,7 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: redis-cart
+    name: cartservice
   config:
     - name: interval
       value: "10000"

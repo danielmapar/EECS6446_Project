@@ -76,7 +76,14 @@ def metric(spec, list_of_deployments, deployments_cpu):
 
     cpu_avr_consump_percent = (deployments_cpu[deployment_name] * 100) / (deployment_cpu_limit * deployment_num_of_replicas)
 
-    sys.stdout.write("%.2f" % round(cpu_avr_consump_percent, 2))
+    cpu_data = {
+        "cpu_millicores_deployment": deployments_cpu[deployment_name],
+        "deployment_num_of_replicas": deployment_num_of_replicas,
+        "deployment_cpu_limit": deployment_cpu_limit,
+        "cpu_avr_consump_percent": float("%.2f" % round(cpu_avr_consump_percent, 2))
+    }
+
+    sys.stdout.write(json.dumps(cpu_data))
 
 if __name__ == "__main__":
     main()

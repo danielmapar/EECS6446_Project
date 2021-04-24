@@ -40,7 +40,7 @@ def evaluate(spec, equation_str, predictions_collection):
     scale_func = FunctionType(f_code.co_consts[0], globals(), "scale")
 
     deployment_name = spec['metrics'][0]['resource']
-    deployment_cpu_avr_consump_percent= float(json.loads(spec['metrics'][0]['value']))
+    cpu_data = json.loads(spec['metrics'][0]['value'])
     deployment_num_of_replicas = spec['resource']['status']['replicas']
 
     last_prediction = None
@@ -48,7 +48,7 @@ def evaluate(spec, equation_str, predictions_collection):
         last_prediction = prediction['value']
         break
 
-    resp = scale_func(last_prediction, deployment_cpu_avr_consump_percent, deployment_num_of_replicas)
+    resp = scale_func(last_prediction, cpu_data, deployment_num_of_replicas)
 
     desired_num_of_replicas = resp[0]
     current_prediction = resp[1]

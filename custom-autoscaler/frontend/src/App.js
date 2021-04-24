@@ -62,19 +62,18 @@ function App(props) {
 
       const defaultCode = `
 # Do not change stout (do not call print)
-def scale(last_prediction, current_deployment_cpu_avg, current_num_of_replicas):
-  desired_num_of_replicas = 1
-  if last_prediction == None:
-      last_prediction = 10
+def scale(last_prediction, cpu_data, current_num_of_replicas):
+  desired_num_of_replicas = current_num_of_replicas
 
-  current_prediction = current_deployment_cpu_avg * last_prediction * 2
-  
-  if current_prediction > 15:
-    desired_num_of_replicas = 2
-  else:
-    desired_num_of_replicas = 1
+  if cpu_data['cpu_avr_consump_percent'] > 90:
+      desired_num_of_replicas = desired_num_of_replicas + 1
+  elif cpu_data['cpu_avr_consump_percent'] < 40:
+      desired_num_of_replicas = desired_num_of_replicas - 1
+    
+  if desired_num_of_replicas == 0:
+      desired_num_of_replicas = 1
 
-  return [desired_num_of_replicas, current_prediction]
+  return [desired_num_of_replicas, cpu_data]
 `;
 
       if (data === null) setEquation(defaultCode)
